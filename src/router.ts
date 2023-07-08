@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { body } from 'express-validator';
+import { body, oneOf } from 'express-validator';
 import { handleInputErrors } from './modules/middleware';
 
 const router = Router();
@@ -11,13 +11,13 @@ router.get('/product', (req, res) => {
 router.get('/product/:id', () => {});
 router.put(
 	'/product/:id',
-	body('name').isString(),
+	body('name').optional().isString(),
 	handleInputErrors,
 	() => {}
 );
 router.post(
 	'/product',
-	body(['name', 'belongsToId']).isString(),
+	body('name').exists().isString(),
 	handleInputErrors,
 	() => {}
 );
@@ -28,17 +28,18 @@ router.get('/update', () => {});
 router.get('/update/:id', () => {});
 router.put(
 	'/update/:id',
-	body('updatedAt').isDate(),
-	body(['title', 'body']).isString(),
-	body('updatePoints').isArray(),
+	body('title').optional().isString(),
+	body('body').optional().isString(),
+	// @ts-ignore
+	body('status').isIn(['IN_PROGRESS', 'SHIPPED', 'DEPRECATED']),
+	body('version').optional(),
 	handleInputErrors,
 	() => {}
 );
 router.post(
 	'/update',
-	body('updatedAt').isDate(),
-	body(['title', 'body', 'productId']).isString(),
-	body('updatePoints').isArray(),
+	body('title').exists().isString(),
+	body('body').exists().isString(),
 	handleInputErrors,
 	() => {}
 );
@@ -49,17 +50,16 @@ router.get('/updatepoint', () => {});
 router.get('/updatepoint/:id', () => {});
 router.put(
 	'/updatepoint/:id',
-	body('updatedAt').isDate(),
-	body(['name', 'description', 'updateId']).isString(),
-	body('products').isArray(),
+	body('name').optional().isString(),
+	body('description').optional().isString(),
 	handleInputErrors,
 	() => {}
 );
 router.post(
 	'/updatepoint',
-	body('updatedAt').isDate(),
-	body(['name', 'description', 'updateId']).isString(),
-	body('products').isArray(),
+	body('name').exists().isString(),
+	body('description').exists().isString(),
+	body('updateId').exists().isString(),
 	handleInputErrors,
 	() => {}
 );
@@ -70,7 +70,7 @@ router.get('/user', () => {});
 router.get('/user/:id', () => {});
 router.put(
 	'/user/:id',
-	body(['username', 'password']).isString(),
+	body(['username', 'description']).isString(),
 	body('products').isArray(),
 	handleInputErrors,
 	() => {}
