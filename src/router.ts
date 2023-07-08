@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { body, oneOf } from 'express-validator';
+import { body } from 'express-validator';
 import { handleInputErrors } from './modules/middleware';
 
 const router = Router();
@@ -64,24 +64,5 @@ router.post(
 	() => {}
 );
 router.delete('/updatepoint/:id', () => {});
-
-// Update Points
-router.get('/user', () => {});
-router.get('/user/:id', () => {});
-router.put(
-	'/user/:id',
-	body(['username', 'description']).isString(),
-	body('products').isArray(),
-	handleInputErrors,
-	() => {}
-);
-router.post(
-	'/user',
-	body(['username', 'password']).isString(),
-	body('products').isArray(),
-	handleInputErrors,
-	() => {}
-);
-router.delete('/user/:id', () => {});
 
 export default router;
