@@ -37,7 +37,7 @@ router.delete('/product/:id', deleteProduct);
 
 // Updates
 router.get('/update', getUpdates);
-router.get('/update/:id', () => {});
+router.get('/update/:id', getOneUpdate);
 router.put(
 	'/update/:id',
 	body('title').optional().isString(),
@@ -45,7 +45,7 @@ router.put(
 	body('status').isIn(['IN_PROGRESS', 'SHIPPED', 'DEPRECATED']).optional(),
 	body('version').optional(),
 	handleInputErrors,
-	() => {}
+	updateUpdate
 );
 router.post(
 	'/update',
@@ -53,19 +53,19 @@ router.post(
 	body('body').isString(),
 	body('productId').isString(),
 	handleInputErrors,
-	() => {}
+	createUpdate
 );
-router.delete('/update/:id', () => {});
+router.delete('/update/:id', deleteUpdate);
 
 // Update Points
-router.get('/updatepoint', getOneUpdate);
-router.get('/updatepoint/:id', getUpdates);
+router.get('/updatepoint', () => {});
+router.get('/updatepoint/:id', () => {});
 router.put(
 	'/updatepoint/:id',
 	body('name').optional().isString(),
 	body('description').optional().isString(),
 	handleInputErrors,
-	updateUpdate
+	() => {}
 );
 router.post(
 	'/updatepoint',
@@ -73,8 +73,8 @@ router.post(
 	body('description').isString(),
 	body('updateId').isString(),
 	handleInputErrors,
-	createUpdate
+	() => {}
 );
-router.delete('/updatepoint/:id', deleteUpdate);
+router.delete('/updatepoint/:id', () => {});
 
 export default router;
