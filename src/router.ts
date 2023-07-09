@@ -7,7 +7,7 @@ import {
 	getOneProduct,
 	getProducts,
 	updateProduct,
-} from './handlers/products';
+} from './handlers/product';
 
 const router = Router();
 
