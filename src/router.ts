@@ -29,7 +29,7 @@ router.put(
 );
 router.post(
 	'/product',
-	body('name').isString(),
+	body('name').isString().isLength({ max: 255 }),
 	handleInputErrors,
 	createProduct
 );
