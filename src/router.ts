@@ -77,4 +77,19 @@ router.post(
 );
 router.delete('/updatepoint/:id', () => {});
 
+// Synchronous error handler
+// @ts-ignore
+app.use((err, req, res, next) => {
+	if (err.type === 'auth') {
+		res.status(401);
+		res.json({ message: 'unauthorized' });
+	} else if (err.type === 'input') {
+		res.status(400);
+		res.json({ message: 'invalid input' });
+	} else {
+		res.status(500);
+		res.json({ message: 'server error' });
+	}
+});
+
 export default router;
