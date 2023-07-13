@@ -79,7 +79,7 @@ router.delete('/updatepoint/:id', () => {});
 
 // Synchronous error handler
 // @ts-ignore
-app.use((err, req, res, next) => {
+router.use((err, req, res, next) => {
 	if (err.type === 'auth') {
 		res.status(401);
 		res.json({ message: 'unauthorized' });
